@@ -1,82 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="O catalogo dos melhores animes de 2023">
-    <title>Catalogo de animes</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-    <header class="cabecalho">
-        <h1 class="titulo_cabecalho">CATALOGO DE ANIMES</h1>
+    <div id="cabecalho">
+        <div class="header-left">
+            <h1 class="titulo">Catalogos animes</h1>
+            <input type="text" class="input-pesquisa" placeholder="Pesquisar">
+        </div>
+        <div class="header-right">
+            <a href="" class="categorias">Categorias</a>
+            <a href="" class="sobre">Sobre</a>
+        </div>
+    </div>
+    <div id="container_animes">
+    </div>
+    <div class="voltar_avancar">
+        <button class="pagina_anterior">&laquo;Pagina Anterior</button>
+        <button class="proxima_pagina">Proxima Pagina&raquo;</button>
+    </div>
 
-        <nav class="menu_cabecalho">
-            <a class="item_menu_cabecalho">Pesquisar</a>
-            <a class="item_menu_cabecalho">Inicio</a>
-            <a class="item_menu_cabecalho" href="sobre.html">Sobre</a>
-        </nav>
-
-    </header>
-    <main class="principal">
-            <div class="conteudo_principal">
-                <figure><a href="https://www.youtube.com/watch?v=gD54D-PuGZE"><img src="img/cool-doji-danshi-large.webp" ></a>
-                    <figcaption>Cool Doji Danshi</figcaption>
-                </figure>
-            </div>
-            <div class="conteudo_principal">
-                <figure>
-                    <a href="https://www.youtube.com/watch?v=6MRxT8kz30k"><img src="img/Attack_on_Titan_Season_1.webp"></a>
-                    <figcaption>Shingeki no Kyojin</figcaption>
-                </figure>
-            </div>
-            <div class="conteudo_principal">
-                <figure>         
-                    <a href="https://www.youtube.com/watch?v=JOGp2c7-cKc"><img src="img/haikyuu.jpg"></a>
-                    <figcaption>Haikyuu!!</figcaption> 
-                </figure> 
-            </div>
-            <div class="conteudo_principal">
-                <figure>
-                    <a href="https://www.youtube.com/watch?v=vHtZhVtEu04"><img src="img/drstone.jpg"></a>
-                    <figcaption>Dr. Stone </figcaption>
-                </figure> 
-            </div>
-            <div class="conteudo_principal">
-                <figure>          
-                    <a href="https://www.youtube.com/watch?v=LHTYpWI3S6Q"><img src=img/one-piece-poster-2-min.jpg></a>
-                    <figcaption>One piece</figcaption>
-                </figure>    
-            </div>
-            <div class="conteudo_principal"> 
-                <figure>
-                    <a href="https://www.youtube.com/watch?v=svkmLwDuhMI"><img src="img/tokyo-ghoul-1a-temporada_t98470_PhMVHwy.webp"></a>
-                    <figcaption>Tokyo Ghoul</figcaption>
-                </figure>    
-            </div>
-            <div class="conteudo_principal"> 
-                <figure>
-                    <a href="https://www.youtube.com/watch?v=1uVS46LdKLg"><img src="img/Boku-no-Hero-Academia-6-Temporada-Todos-os-Episodios-AniTube.jpg"></a>
-                    <figcaption>Boku no Hero Academia</figcaption>
-                </figure>    
-            </div>
-            <div class="conteudo_principal"> 
-                <figure>
-                    <a href="https://www.youtube.com/watch?v=nQeIObeB--8"><img src="img/Boruto_Naruto_Next_Generations_Capa.webp"></a>
-                    <figcaption>Boruto</figcaption>
-                </figure> 
-            </div> 
-    </main>
-    <footer class="rodape">
-        <button class="rodape_botao">
-            Próxima pagina
-
-        </button>
-
-    </footer>
-    
+    <script src="app.js"></script>
 </body>
 </html>

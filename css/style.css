@@ -1,120 +1,120 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sarala:wght@700&display=swap');
-
+/* Reset básico para remover margens e paddings padrão */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-decoration: none;
 }
 
-
+/* Estilo para o corpo da página */
 body {
-    font-size: 100%;
-    background-image: linear-gradient(rgb(4, 1, 39), rgb(15, 2, 63), rgb(5, 35, 133));
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
 }
 
-.cabecalho{
+/* Estilo do cabeçalho */
+#cabecalho {
+    background-color: #282c34;
+    color: white;
+    padding: 1rem;
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    text-align: center;
-    
-}
-
-.titulo_cabecalho{
-    font-family: 'Righteous', cursive;
-    color: #FFFFFF;
-    font-weight: 300;
-    font-size: 20px;
-    margin-left: 15px;
-}
-
-.menu_cabecalho{
-    display: flex;
-    gap: 32px;
-    margin-right: 15px;
-}
-
-.item_menu_cabecalho{
-    font-family: 'Righteous', cursive;
-    color: #FFFFFF;
-    font-weight: 300;
-    font-size: 20px;
-}
-
-.principal{
-    margin-top: 10px;
-    border-top: 2px solid #F6BD9D;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-}
-
-.conteudo_principal{
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    font-family: 'Sarala', sans-serif;
-    font-weight: 300;
-    font-size: 15px;
-    text-align: center;
-    padding: 20px;
-    width: 200px;
-    color: #FFFFFF;
-    
-
 }
 
-.conteudo_principal:hover {
-    background-image:linear-gradient(rgb(82, 82, 82), rgb(1, 0, 3) );
-    cursor: pointer;
-    border-radius: 20px;
-
-}
-
-.conteudo_principal img{
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 1);
-    width: 163px;
-    height: 218px;
-}
-
-.rodape {
+/* Container do lado esquerdo do cabeçalho */
+.header-left {
     display: flex;
-    flex-direction: row;
     align-items: center;
+}
+
+/* Container do lado direito do cabeçalho */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.input-pesquisa {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.categorias, .sobre {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.categorias:hover, .sobre:hover {
+    text-decoration: underline;
+}
+
+/* Estilo do container de animes */
+#container_animes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    align-items: start;
+}
+
+/* Estilo de cada anime na lista */
+.anime_lista {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.anime_lista:hover {
+    transform: translateY(-5px);
+}
+
+.anime_image {
+    width: 100%;
+    max-width: 200px; /* Definindo um tamanho máximo para a largura */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+}
+
+.anime_titulo {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.voltar_avancar {
+    display: flex;
     justify-content: center;
-
+    gap: 10px;
+    margin-block-end: 20px;
 }
 
-.rodape_botao {
-    display: flex;
-    width:170px;
-    display:block;  
-    color:rgb(3, 3, 3);
-    font-family: 'Righteous', cursive;
-    font-size:1em;
-    text-align:center;
-    text-decoration:none;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    background-color:#c5ddde;
-    transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55), background-position 800ms cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 500ms linear;
-    background-size:contain;
-    background-position: -250px center;
-    background-repeat: no-repeat;
-    box-shadow: 0 4px 3px rgba(93, 90, 90, 0.12), 0 1px 2px rgba(63, 62, 62, 0.24);
-    border-radius: 20px;
-    margin: 20px;
+.pagina_anterior, .proxima_pagina {
+    padding: 10px 30px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    line-height: 1.25;
+    background: #f0eded;
+    text-decoration: none;
+    color: rgb(16, 15, 15);
+    font-size: 10px;
+    letter-spacing: .08em;
+    position: relative;
 }
 
-.rodape_botao:hover {
-    transform: scale(1.1);
-    background-position: -60px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-
+.pagina_anterior:hover, .proxima_pagina:hover {
+    transform: translateY(-3px);
 }
