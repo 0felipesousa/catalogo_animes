@@ -1,5 +1,5 @@
 # catalogo_animes
-Esse projeto consiste em um catalogo de animes que usa o consumo de uma api para fazer mostras as informações dos animes como imagem e titulo.
+Esse projeto consiste em um catalogo de animes que usa o consumo de uma api para mostrar as informações dos animes como imagem e titulo.
 
 ### Funcionalidades Principais
 - Pesquisa de animes por título
