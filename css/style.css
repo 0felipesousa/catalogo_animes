@@ -1,19 +1,18 @@
-/* Reset básico para remover margens e paddings padrão */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilo para o corpo da página */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
+    padding: 1rem;
 }
 
-/* Estilo do cabeçalho */
 #cabecalho {
     background-color: #282c34;
     color: white;
@@ -21,18 +20,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; 
 }
 
-/* Container do lado esquerdo do cabeçalho */
 .header-left {
     display: flex;
     align-items: center;
+    flex-wrap: wrap; 
 }
 
-/* Container do lado direito do cabeçalho */
 .header-right {
     display: flex;
     align-items: center;
+    flex-wrap: wrap; 
+    gap: 1rem; 
 }
 
 .titulo {
@@ -49,31 +50,32 @@ body {
 .categorias, .sobre {
     color: white;
     text-decoration: none;
-    margin-left: 1rem;
 }
 
 .categorias:hover, .sobre:hover {
     text-decoration: underline;
 }
 
-/* Estilo do container de animes */
 #container_animes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
     gap: 1rem;
-    padding: 1rem;
-    align-items: start;
+    padding: 1rem 0;
+    justify-items: center; 
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
-/* Estilo de cada anime na lista */
+
 .anime_lista {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    max-width: 300px; 
+    max-height: 500px; 
 }
 
 .anime_lista:hover {
@@ -82,10 +84,8 @@ body {
 
 .anime_image {
     width: 100%;
-    max-width: 200px; /* Definindo um tamanho máximo para a largura */
     height: auto;
     display: block;
-    margin: 0 auto; /* Centraliza a imagem horizontalmente */
 }
 
 .anime_titulo {
@@ -99,7 +99,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-block-end: 20px;
+    margin: 20px 0;
 }
 
 .pagina_anterior, .proxima_pagina {
@@ -110,11 +110,50 @@ body {
     background: #f0eded;
     text-decoration: none;
     color: rgb(16, 15, 15);
-    font-size: 10px;
+    font-size: 15px;
     letter-spacing: .08em;
     position: relative;
 }
 
 .pagina_anterior:hover, .proxima_pagina:hover {
     transform: translateY(-3px);
+}
+
+.anime_lista_placeholder {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    visibility: hidden;
+}
+
+@media (max-width: 768px) {
+    #cabecalho {
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+
+    .titulo {
+        font-size: 1.2rem; 
+    }
+
+    .input-pesquisa {
+        width: 100%; 
+    }
+
+    .header-left, .header-right {
+        width: 100%; 
+        justify-content: space-between; 
+    }
+
+    .categorias, .sobre {
+        margin: 0.5rem 0; 
+    }
+
+    #container_animes {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+    }
+
+    .anime_lista {
+        max-width: 150px; 
+    }
 }

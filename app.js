@@ -4,7 +4,7 @@ const buttonProximo = document.querySelector('.proxima_pagina');
 const inputSearch = document.querySelector('.input-pesquisa')
 const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 let currentPage = 0;
-const limit = 18;
+const limit = 20;
 
 const fetchAnimes = async (page) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
@@ -38,7 +38,9 @@ const mostrarAnime = async () => {
 }
 
 const criarAnime =  (animes) => {
-    containerAnimes.innerHTML = ''; // Limpa o container antes de adicionar novos animes
+    containerAnimes.innerHTML = '';
+    const totalItems = animes.length;
+    const itemsNeeded = limit - totalItems;
     animes.forEach(anime => {
         const titulo = anime.attributes.slug.toUpperCase();
         const posterImage = anime.attributes.posterImage.large;
@@ -63,6 +65,11 @@ const criarAnime =  (animes) => {
         animeLista.appendChild(animeTitulo);
         containerAnimes.appendChild(animeLista);
     });
+    for (let i = 0; i < itemsNeeded; i++) {
+        const placeholder = document.createElement('div');
+        placeholder.classList.add('anime_lista', 'anime_lista_placeholder');
+        containerAnimes.appendChild(placeholder);
+    }
 };
 
 const filterAnimes = async () => {
@@ -75,7 +82,7 @@ const filterAnimes = async () => {
             containerAnimes.innerHTML = 'Nenhum anime encontrado para a busca.';
         }
     } else {
-        criarAnime(allAnimes); // Mostra todos os animes se não houver termo de busca
+        criarAnime(allAnimes); 
     }
     if(searchTerm === ""){
         currentPage = 0
@@ -85,7 +92,6 @@ const filterAnimes = async () => {
 
 inputSearch.addEventListener('input', filterAnimes);
 
-// Event Listeners para os botões
 buttonAnterior.addEventListener('click', () => {
     if (currentPage > 0) {
         currentPage--;
