@@ -40,6 +40,14 @@ body {
     font-size: 1.5rem;
     margin-right: 1rem;
 }
+.titulo a {
+    color: white;
+    text-decoration: none;
+}
+
+.titulo a:hover {
+    text-decoration: underline;
+}
 
 .input-pesquisa {
     padding: 0.5rem;
