@@ -48,9 +48,9 @@ const criarAnime =  (animes) => {
         const animeLista = document.createElement('div');
         animeLista.classList.add('anime_lista');
 
-        const animeInfo = document.createElement('a');
-        animeInfo.classList.add('anime_info');
-        animeInfo.href = 'informacoesAnimes.html';
+        // const animeInfo = document.createElement('a');
+        // animeInfo.classList.add('anime_info');
+        // animeInfo.href = 'informacoesAnimes.html';
 
         const animeImage = document.createElement('img');
         animeImage.src = posterImage;
@@ -60,8 +60,7 @@ const criarAnime =  (animes) => {
         animeTitulo.innerHTML = titulo;
         animeTitulo.classList.add('anime_titulo');
 
-        animeLista.appendChild(animeInfo);
-        animeInfo.appendChild(animeImage);
+        animeLista.appendChild(animeImage);
         animeLista.appendChild(animeTitulo);
         containerAnimes.appendChild(animeLista);
     });
@@ -71,6 +70,15 @@ const criarAnime =  (animes) => {
         containerAnimes.appendChild(placeholder);
     }
 };
+
+const infoAnimes = () => {
+    document.addEventListener("click", function(e) {
+        let el = e.target;
+        if (el.target.classList.contains('anime_titulo')) {
+            alert('oi')
+        }
+    })
+}
 
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.toUpperCase();
@@ -104,4 +112,5 @@ buttonProximo.addEventListener('click', () => {
     mostrarAnime();
 });
 
+infoAnimes()
 mostrarAnime();
