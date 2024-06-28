@@ -19,7 +19,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    margin-left: 80px;
 }
 
 .header-left {
@@ -46,7 +47,7 @@ body {
 }
 
 .titulo a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .input-pesquisa {
@@ -54,11 +55,6 @@ body {
     border: none;
     width: 20rem;
     border-radius: 5px;
-}
-
-.categorias, .sobre {
-    color: white;
-    text-decoration: none;
 }
 
 .categorias:hover, .sobre:hover {
@@ -75,7 +71,6 @@ body {
     margin-right: 40px;
 }
 
-
 .anime_lista {
     background-color: white;
     border-radius: 10px;
@@ -84,7 +79,8 @@ body {
     transition: transform 0.2s;
     width: 100%;
     max-width: 300px; 
-    max-height: 500px; 
+    max-height: 500px;
+    margin-left: 85px;
 }
 
 .anime_lista:hover {
@@ -104,29 +100,6 @@ body {
     font-weight: bold;
 }
 
-.voltar_avancar {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-}
-
-.pagina_anterior, .proxima_pagina {
-    padding: 10px 30px;
-    border-radius: 3px;
-    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
-    line-height: 1.25;
-    background: #f0eded;
-    text-decoration: none;
-    color: rgb(16, 15, 15);
-    font-size: 15px;
-    letter-spacing: .08em;
-    position: relative;
-}
-
-.pagina_anterior:hover, .proxima_pagina:hover {
-    transform: translateY(-3px);
-}
 
 .anime_lista_placeholder {
     background-color: transparent;
@@ -183,6 +156,92 @@ footer{
 }
 .footer-col ul li p {
     color: rgb(185, 182, 182);
+}
+
+nav.menu_lateral {
+    width: 80px;
+    height: 100%;
+    background-color: #282c34;
+    padding: 40px 0 40px 1%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+nav.menu_lateral:hover {
+    width: 300px;
+}
+
+.btn_expandir {
+    width: 100%;
+    padding-left: 10px;
+    margin-top: 20px;
+}
+
+.btn_expandir > i{
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    margin-left: 3px;
+    
+}
+
+ul {
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.item_menu {
+    transition: .2s;
+}
+
+ul li.item_menu:hover {
+    background: rgb(57, 56, 56);
+}
+
+ul li.item_menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 4%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+ul li.item_menu a .txt_link {
+    margin-left: 40px;
+}
+
+ul li.item_menu a .icon > i{
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.voltar_avancar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.pagina_anterior, .proxima_pagina {
+    padding: 10px 30px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    line-height: 1.25;
+    background: #f0eded;
+    text-decoration: none;
+    color: rgb(16, 15, 15);
+    font-size: 15px;
+    letter-spacing: .08em;
+    position: relative;
+}
+
+.pagina_anterior:hover, .proxima_pagina:hover {
+    transform: translateY(-3px);
 }
 
 @media (max-width: 800px) {
