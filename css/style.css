@@ -325,3 +325,8 @@ ul li.item_menu a .icon > i {
         max-width: 120px;
     }
 }
+
+.link_anime {
+    text-decoration: none;
+    color: black;
+}

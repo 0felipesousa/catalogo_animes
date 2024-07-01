@@ -42,15 +42,14 @@ const criarAnime =  (animes) => {
     const totalItems = animes.length;
     const itemsNeeded = limit - totalItems;
     animes.forEach(anime => {
-        const titulo = anime.attributes.slug.toUpperCase();
+        const titulo = anime.attributes.titles.en_jp.toUpperCase();
         const posterImage = anime.attributes.posterImage.large;
-
+        
         const animeLista = document.createElement('div');
         animeLista.classList.add('anime_lista');
-
-        // const animeInfo = document.createElement('a');
-        // animeInfo.classList.add('anime_info');
-        // animeInfo.href = 'informacoesAnimes.html';
+        const link = document.createElement('a')
+        link.href = `informacoes.html?id=${anime.id}`
+        link.classList.add('link_anime')
 
         const animeImage = document.createElement('img');
         animeImage.src = posterImage;
@@ -60,8 +59,9 @@ const criarAnime =  (animes) => {
         animeTitulo.innerHTML = titulo;
         animeTitulo.classList.add('anime_titulo');
 
+        link.appendChild(animeTitulo)
         animeLista.appendChild(animeImage);
-        animeLista.appendChild(animeTitulo);
+        animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
     });
     for (let i = 0; i < itemsNeeded; i++) {
@@ -70,15 +70,6 @@ const criarAnime =  (animes) => {
         containerAnimes.appendChild(placeholder);
     }
 };
-
-const infoAnimes = () => {
-    document.addEventListener("click", function(e) {
-        let el = e.target;
-        if (el.target.classList.contains('anime_titulo')) {
-            alert('oi')
-        }
-    })
-}
 
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.toUpperCase();
@@ -112,5 +103,4 @@ buttonProximo.addEventListener('click', () => {
     mostrarAnime();
 });
 
-infoAnimes()
 mostrarAnime();

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sarala:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+/* info.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.infoAnimesContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #282c34;
+}
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+img {
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detalhes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.detalhes li {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.detalhes .trailer a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #282c34;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.detalhes .trailer a:hover {
+    background-color: #1b1e23;
+}
+
+#sinopse {
+    margin-top: 20px;
+    line-height: 1.6;
+    color: #555;
+    text-align: justify;
+}
+
+@media (max-width: 600px) {
+    .infoAnimesContainer {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    img {
+        max-width: 150px;
+    }
+
+    .detalhes li {
+        font-size: 0.9rem;
+    }
+
+    .detalhes .trailer a {
+        padding: 8px 16px;
+    }
+
+    #sinopse {
+        font-size: 0.9rem;
+    }
+}
