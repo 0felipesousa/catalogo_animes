@@ -10,6 +10,9 @@ body {
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 #cabecalho {
@@ -20,27 +23,22 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-left: 80px;
 }
 
-.header-left {
+.header-left,
+.header-right {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; 
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap; 
-    gap: 1rem; 
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .titulo {
     font-size: 1.5rem;
     margin-right: 1rem;
 }
+
 .titulo a {
     color: white;
     text-decoration: none;
@@ -57,18 +55,18 @@ body {
     border-radius: 5px;
 }
 
-.categorias:hover, .sobre:hover {
+.categorias:hover,
+.sobre:hover {
     text-decoration: underline;
 }
 
 #container_animes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     padding: 1rem 0;
-    justify-items: center; 
-    margin-left: 40px;
-    margin-right: 40px;
+    justify-items: center;
+    margin: 0 auto;
 }
 
 .anime_lista {
@@ -78,9 +76,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     width: 100%;
-    max-width: 300px; 
+    max-width: 300px;
     max-height: 500px;
-    margin-left: 85px;
 }
 
 .anime_lista:hover {
@@ -100,7 +97,6 @@ body {
     font-weight: bold;
 }
 
-
 .anime_lista_placeholder {
     background-color: transparent;
     border: none;
@@ -108,40 +104,47 @@ body {
     visibility: hidden;
 }
 
-footer{
+footer {
     background-color: #282c34;
     padding: 10px 0;
     margin-bottom: 10px;
 }
-.container-footer{
+
+.container-footer {
     max-width: 1400px;
     padding: 0 4%;
     margin: auto;
 }
-.row-footer{
+
+.row-footer {
     display: flex;
     flex-wrap: wrap;
 }
 
-.footer-col{
+.footer-col {
     width: 25%;
     padding: 0 15px;
 }
-.footer-col h4{
+
+.footer-col h4 {
     font-size: 22px;
     color: white;
     margin-bottom: 20px;
     font-weight: 500;
     position: relative;
     text-transform: uppercase;
+    z-index: 1;
 }
-.footer-col ul{
+
+.footer-col ul {
     list-style: none;
 }
-.footer-col ul li{
+
+.footer-col ul li {
     margin: 10px 0;
 }
-.footer-col ul li a{
+
+.footer-col ul li a {
     font-size: 16px;
     text-transform: capitalize;
     color: rgb(185, 182, 182);
@@ -150,10 +153,12 @@ footer{
     display: block;
     transition: all 0.3s ease;
 }
-.footer-col ul li a:hover{
+
+.footer-col ul li a:hover {
     color: #cecdcd;
     padding-left: 10px;
 }
+
 .footer-col ul li p {
     color: rgb(185, 182, 182);
 }
@@ -163,11 +168,11 @@ nav.menu_lateral {
     height: 100%;
     background-color: #282c34;
     padding: 40px 0 40px 1%;
-
     position: fixed;
     top: 0;
     left: 0;
     overflow: hidden;
+    z-index: 2;
 }
 
 nav.menu_lateral:hover {
@@ -180,12 +185,11 @@ nav.menu_lateral:hover {
     margin-top: 20px;
 }
 
-.btn_expandir > i{
+.btn_expandir > i {
     color: white;
     font-size: 30px;
     cursor: pointer;
     margin-left: 3px;
-    
 }
 
 ul {
@@ -215,7 +219,7 @@ ul li.item_menu a .txt_link {
     margin-left: 40px;
 }
 
-ul li.item_menu a .icon > i{
+ul li.item_menu a .icon > i {
     font-size: 30px;
     margin-left: 10px;
 }
@@ -227,10 +231,11 @@ ul li.item_menu a .icon > i{
     margin: 20px 0;
 }
 
-.pagina_anterior, .proxima_pagina {
+.pagina_anterior,
+.proxima_pagina {
     padding: 10px 30px;
     border-radius: 3px;
-    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
     line-height: 1.25;
     background: #f0eded;
     text-decoration: none;
@@ -240,51 +245,83 @@ ul li.item_menu a .icon > i{
     position: relative;
 }
 
-.pagina_anterior:hover, .proxima_pagina:hover {
+.pagina_anterior:hover,
+.proxima_pagina:hover {
     transform: translateY(-3px);
 }
 
 @media (max-width: 800px) {
-    .footer-col{
+    .footer-col {
         width: 50%;
         margin-bottom: 30px;
     }
 }
-@media (max-width:600px) {
-    .footer-col{
+
+@media (max-width: 600px) {
+    .footer-col {
         width: 100%;
     }
 }
 
-
 @media (max-width: 768px) {
     #cabecalho {
-        flex-direction: column; 
+        flex-direction: column;
         align-items: flex-start;
     }
 
     .titulo {
-        font-size: 1.2rem; 
+        font-size: 1.2rem;
     }
 
     .input-pesquisa {
-        width: 100%; 
+        width: 100%;
     }
 
-    .header-left, .header-right {
-        width: 100%; 
-        justify-content: space-between; 
+    .header-left,
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
     }
 
-    .categorias, .sobre {
-        margin: 0.5rem 0; 
+    .categorias,
+    .sobre {
+        margin: 0.5rem 0;
     }
 
     #container_animes {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 
     .anime_lista {
-        max-width: 150px; 
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo {
+        font-size: 1rem;
+    }
+
+    .input-pesquisa {
+        width: 100%;
+    }
+
+    .header-left,
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .categorias,
+    .sobre {
+        margin: 0.5rem 0;
+    }
+
+    #container_animes {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+
+    .anime_lista {
+        max-width: 120px;
     }
 }
