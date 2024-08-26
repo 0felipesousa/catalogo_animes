@@ -163,34 +163,6 @@ footer {
     color: rgb(185, 182, 182);
 }
 
-nav.menu_lateral {
-    width: 80px;
-    height: 100%;
-    background-color: #282c34;
-    padding: 40px 0 40px 1%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: 2;
-}
-
-nav.menu_lateral:hover {
-    width: 300px;
-}
-
-.btn_expandir {
-    width: 100%;
-    padding-left: 10px;
-    margin-top: 20px;
-}
-
-.btn_expandir > i {
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    margin-left: 3px;
-}
 
 ul {
     height: 100%;
@@ -243,6 +215,7 @@ ul li.item_menu a .icon > i {
     font-size: 15px;
     letter-spacing: .08em;
     position: relative;
+    cursor: pointer;
 }
 
 .pagina_anterior:hover,

@@ -8,22 +8,30 @@ const limit = 20;
 
 const fetchAnimes = async (page) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
-    if (response.status === 200) {
-        const obj = await response.json();
-        console.log(obj);
-        return obj;
-    }
+    try {
+        if (response.status === 200) {
+            const obj = await response.json();
+            console.log(obj);
+            return obj;
+        }
+    } catch (e){
+        console.error(e)
+    } 
 };
 
 const fetchAnimesBySearch = async (searchTerm) => {
     const response = await fetch(`${URL_ANIMES}?filter[text]=${searchTerm}&page[limit]=${limit}`);
-    if (response.status === 200) {
-        const obj = await response.json();
-        console.log(obj);
-        return obj;
-    } else {
-        console.error('Erro ao buscar animes:', response.status);
-        return null;
+    try {
+        if (response.status === 200) {
+            const obj = await response.json();
+            console.log(obj);
+            return obj;
+        } else {
+            console.error('Erro ao buscar animes:', response.status);
+            return null;
+        }
+    } catch (e) {
+        console.error(e)
     }
 };
 
