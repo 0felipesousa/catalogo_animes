@@ -11,6 +11,10 @@ async function fetchAnimesInfo() {
         const response = await fetch(`https://kitsu.io/api/edge/anime/${animeId}`);
     
         const data = await response.json();
+
+        document.querySelector("#button-voltar").addEventListener("click", function(){
+            history.back();
+        });
     
         if (data) {
             const anime = data.data.attributes;

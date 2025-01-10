@@ -97,6 +97,12 @@ const filterAnimes = async () => {
     }
 };
 
+inputSearch.addEventListener('keypress', (e) => {
+    if (e.key === 13) {
+        filterAnimes()
+    }
+})
+
 inputSearch.addEventListener('input', filterAnimes);
 
 buttonAnterior.addEventListener('click', () => {

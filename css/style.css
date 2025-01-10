@@ -10,9 +10,7 @@ body {
     background-color: #f0f0f0;
     color: #333;
     line-height: 1.6;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
+    max-width: 1920px;
 }
 
 #cabecalho {
@@ -23,6 +21,8 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .header-left,
@@ -66,7 +66,8 @@ body {
     gap: 1rem;
     padding: 1rem 0;
     justify-items: center;
-    margin: 0 auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .anime_lista {
@@ -107,12 +108,12 @@ body {
 footer {
     background-color: #282c34;
     padding: 10px 0;
-    margin-bottom: 10px;
+    height: 200px;
 }
 
 .container-footer {
     max-width: 1400px;
-    padding: 0 4%;
+    padding: 0 5%;
     margin: auto;
 }
 
@@ -201,6 +202,7 @@ ul li.item_menu a .icon > i {
     justify-content: center;
     gap: 10px;
     margin: 20px 0;
+   
 }
 
 .pagina_anterior,
