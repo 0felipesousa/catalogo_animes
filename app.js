@@ -67,8 +67,9 @@ const criarAnime =  (animes) => {
         animeTitulo.innerHTML = titulo;
         animeTitulo.classList.add('anime_titulo');
 
+        link.appendChild(animeImage)
         link.appendChild(animeTitulo)
-        animeLista.appendChild(animeImage);
+        //animeLista.appendChild(animeImage);
         animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
     });
@@ -77,6 +78,15 @@ const criarAnime =  (animes) => {
         placeholder.classList.add('anime_lista', 'anime_lista_placeholder');
         containerAnimes.appendChild(placeholder);
     }
+    ajustarTitulos()
+};
+
+const ajustarTitulos = () => {
+    const titulos = document.querySelectorAll('.anime_titulo');
+    titulos.forEach(titulo => {
+        titulo.style.fontSize = '0.8rem'; // Exemplo de tamanho ajustado
+        titulo.style.color = 'black'; // Exemplo de cor
+    });
 };
 
 const filterAnimes = async () => {
