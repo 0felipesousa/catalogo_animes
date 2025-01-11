@@ -5,6 +5,7 @@ const inputSearch = document.querySelector('.input-pesquisa')
 const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 let currentPage = 0;
 const limit = 18;
+let isLoading = false;
 
 const fetchAnimes = async (page) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
@@ -36,28 +37,30 @@ const fetchAnimesBySearch = async (searchTerm) => {
 };
 
 const mostrarAnime = async () => {
+    if (isLoading) return; // Evita chamadas simultâneas
+    isLoading = true;
     const dataAnimes = await fetchAnimes(currentPage);
     if (dataAnimes) {
-        allAnimes = dataAnimes.data;
-        criarAnime(allAnimes)
+        const allAnimes = dataAnimes.data;
+        criarAnime(allAnimes);
+        currentPage++; // Incrementa a página para o próximo carregamento
     } else {
-        containerAnimes.innerHTML = 'Animes não encontrados';
+        console.log('Nenhum anime encontrado.');
     }
-}
+    isLoading = false;
+};
 
-const criarAnime =  (animes) => {
-    containerAnimes.innerHTML = '';
-    const totalItems = animes.length;
-    const itemsNeeded = limit - totalItems;
+const criarAnime = (animes) => {
     animes.forEach(anime => {
         const titulo = anime.attributes.titles.en_jp.toUpperCase();
         const posterImage = anime.attributes.posterImage.large;
-        
+
         const animeLista = document.createElement('div');
         animeLista.classList.add('anime_lista');
-        const link = document.createElement('a')
-        link.href = `informacoes.html?id=${anime.id}`
-        link.classList.add('link_anime')
+
+        const link = document.createElement('a');
+        link.href = `informacoes.html?id=${anime.id}`;
+        link.classList.add('link_anime');
 
         const animeImage = document.createElement('img');
         animeImage.src = posterImage;
@@ -67,18 +70,12 @@ const criarAnime =  (animes) => {
         animeTitulo.innerHTML = titulo;
         animeTitulo.classList.add('anime_titulo');
 
-        link.appendChild(animeImage)
-        link.appendChild(animeTitulo)
-        //animeLista.appendChild(animeImage);
+        link.appendChild(animeImage);
+        link.appendChild(animeTitulo);
         animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
     });
-    for (let i = 0; i < itemsNeeded; i++) {
-        const placeholder = document.createElement('div');
-        placeholder.classList.add('anime_lista', 'anime_lista_placeholder');
-        containerAnimes.appendChild(placeholder);
-    }
-    ajustarTitulos()
+    ajustarTitulos();
 };
 
 const ajustarTitulos = () => {
@@ -89,6 +86,14 @@ const ajustarTitulos = () => {
     });
 };
 
+const onScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 100) { // Quando o usuário chegar perto do final
+        mostrarAnime();
+    }
+};
+
+window.addEventListener('scroll', onScroll);
 
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.toUpperCase();
