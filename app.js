@@ -4,7 +4,7 @@ const buttonProximo = document.querySelector('.proxima_pagina');
 const inputSearch = document.querySelector('.input-pesquisa')
 const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 let currentPage = 0;
-const limit = 20;
+const limit = 18;
 
 const fetchAnimes = async (page) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
@@ -88,6 +88,7 @@ const ajustarTitulos = () => {
         titulo.style.color = 'black'; // Exemplo de cor
     });
 };
+
 
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.toUpperCase();
