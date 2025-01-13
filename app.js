@@ -1,7 +1,7 @@
 const containerAnimes = document.querySelector('#container_animes');
 const buttonAnterior = document.querySelector('.pagina_anterior');
 const buttonProximo = document.querySelector('.proxima_pagina');
-const inputSearch = document.querySelector('.input-pesquisa')
+const inputSearch = document.querySelector('.input-pesquisa');
 const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 let currentPage = 0;
 const limit = 18;
@@ -10,43 +10,27 @@ const maxAnimes = 52; // Limite de animes a serem exibidos
 let totalLoadedAnimes = 0; // Contador de animes carregados
 
 const fetchAnimes = async (page) => {
-    const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
     try {
+        const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
         if (response.status === 200) {
             const obj = await response.json();
-            console.log(obj);
             return obj;
         }
     } catch (e) {
-        console.error(e)
+        console.error(e);
     }
-};
-
-const fetchAnimesBySearch = async (searchTerm) => {
-    const response = await fetch(`${URL_ANIMES}?filter[text]=${searchTerm}&page[limit]=${limit}`);
-    try {
-        if (response.status === 200) {
-            const obj = await response.json();
-            console.log(obj);
-            return obj;
-        } else {
-            console.error('Erro ao buscar animes:', response.status);
-            return null;
-        }
-    } catch (e) {
-        console.error(e)
-    }
+    return null;
 };
 
 const mostrarAnime = async () => {
-    if (isLoading || totalLoadedAnimes >= maxAnimes) return; // Para se atingir o limite
+    if (isLoading || totalLoadedAnimes >= maxAnimes) return;
     isLoading = true;
     const dataAnimes = await fetchAnimes(currentPage);
     if (dataAnimes) {
         const allAnimes = dataAnimes.data;
         criarAnime(allAnimes);
-        totalLoadedAnimes += allAnimes.length; // Incrementa o total de animes carregados
-        currentPage++; // Incrementa a página para o próximo carregamento
+        totalLoadedAnimes += allAnimes.length;
+        currentPage++;
     } else {
         console.log('Nenhum anime encontrado.');
     }
@@ -55,7 +39,7 @@ const mostrarAnime = async () => {
 
 const criarAnime = (animes) => {
     animes.forEach(anime => {
-        if (totalLoadedAnimes >= maxAnimes) return; // Verifica novamente para evitar excesso
+        if (totalLoadedAnimes >= maxAnimes) return;
         const titulo = anime.attributes.titles.en_jp.toUpperCase();
         const posterImage = anime.attributes.posterImage.large;
 
@@ -79,63 +63,37 @@ const criarAnime = (animes) => {
         animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
     });
-    ajustarTitulos();
-};
-
-const ajustarTitulos = () => {
-    const titulos = document.querySelectorAll('.anime_titulo');
-    titulos.forEach(titulo => {
-        titulo.style.fontSize = '0.8rem'; // Exemplo de tamanho ajustado
-        titulo.style.color = 'black'; // Exemplo de cor
-    });
 };
 
 const onScroll = () => {
-    if (totalLoadedAnimes >= maxAnimes) return; // Interrompe o scroll se atingir o limite
+    if (totalLoadedAnimes >= maxAnimes || isLoading) return;
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 100) { // Quando o usuário chegar perto do final
+    if (scrollTop + clientHeight >= scrollHeight - 300) { // Ajuste para carregar antes de atingir o final
         mostrarAnime();
     }
 };
 
 window.addEventListener('scroll', onScroll);
+window.addEventListener('resize', onScroll); // Para tratar redimensionamentos
 
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.toUpperCase();
     if (searchTerm) {
         const dataAnimes = await fetchAnimesBySearch(searchTerm);
         if (dataAnimes && dataAnimes.data) {
+            containerAnimes.innerHTML = ''; // Limpa os animes anteriores
             criarAnime(dataAnimes.data);
         } else {
             containerAnimes.innerHTML = 'Nenhum anime encontrado para a busca.';
         }
     } else {
-        criarAnime(allAnimes); 
-    }
-    if(searchTerm === "") {
         currentPage = 0;
+        totalLoadedAnimes = 0;
+        containerAnimes.innerHTML = '';
         mostrarAnime();
     }
 };
 
-inputSearch.addEventListener('keypress', (e) => {
-    if (e.key === 13) {
-        filterAnimes();
-    }
-});
-
 inputSearch.addEventListener('input', filterAnimes);
-
-buttonAnterior.addEventListener('click', () => {
-    if (currentPage > 0) {
-        currentPage--;
-        mostrarAnime();
-    }
-});
-
-buttonProximo.addEventListener('click', () => {
-    currentPage++;
-    mostrarAnime();
-});
 
 mostrarAnime();
