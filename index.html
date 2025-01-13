@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div id="cabecalho">
@@ -27,24 +28,73 @@
         <button class="proxima_pagina">Proxima Pagina&raquo;</button>
     </div>
     <footer>
-        <div class="container-footer">
-            <div class="row-footer">   
-                <!-- footer col-->
-                <div class="footer-col">
-                    <h4>Informações</h4>
-                    <ul>
-                        <li><a href="https://github.com/0felipesousa/catalogo_animes" target="_blank">Repositorio</a></li>
-                        <li><a href="https://www.linkedin.com/in/0felipesousa/" target="_blank">linkedin</a></li>
-                        <li><a href="#"></a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Sobre</h4>
-                    <ul>
-                        <li><p>Catalogo de animes é um projeto de treinamento com consumo de uma api para montar uma interface interativa.</p></li>
-                    </ul>
+        <div id="footer_content">
+            <div class="footer_contacts">
+                <h1>Logo</h1>
+
+                <div id="footer_social_media">
+                    <a href="https://www.instagram.com/0felipeesousa" class="footer-link" id="instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/0felipesousa/catalogo_animes" class="footer-link" id="github">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/0felipesousa/" class="footer-link" id="linkedin">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
                 </div>
             </div>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>blog</h3>
+                </li>
+
+                <li>
+                    <a href="#" class="footer-link">Tech</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Teste</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Teste</a>
+                </li>
+            </ul>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>Products</h3>
+                </li>
+
+                <li>
+                    <a href="#" class="footer-link">Tech</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Teste</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Teste</a>
+                </li>
+            </ul>
+
+            <div id="footer_subscribe">
+                <h3>Subscribe</h3>
+                <p>
+                    Um texto qualquer
+                </p>
+
+                <div id="input_group">
+                    <input type="email" id="email">
+                    <button>
+                        <i class="fa-regular fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer_copyright">
+            &#169
+            2025 all rights reserved
         </div>
     </footer>
     <script src="app.js"></script>

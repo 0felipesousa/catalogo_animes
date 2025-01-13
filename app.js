@@ -6,6 +6,8 @@ const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 let currentPage = 0;
 const limit = 18;
 let isLoading = false;
+const maxAnimes = 52; // Limite de animes a serem exibidos
+let totalLoadedAnimes = 0; // Contador de animes carregados
 
 const fetchAnimes = async (page) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${page * limit}`);
@@ -15,9 +17,9 @@ const fetchAnimes = async (page) => {
             console.log(obj);
             return obj;
         }
-    } catch (e){
+    } catch (e) {
         console.error(e)
-    } 
+    }
 };
 
 const fetchAnimesBySearch = async (searchTerm) => {
@@ -37,12 +39,13 @@ const fetchAnimesBySearch = async (searchTerm) => {
 };
 
 const mostrarAnime = async () => {
-    if (isLoading) return; // Evita chamadas simultâneas
+    if (isLoading || totalLoadedAnimes >= maxAnimes) return; // Para se atingir o limite
     isLoading = true;
     const dataAnimes = await fetchAnimes(currentPage);
     if (dataAnimes) {
         const allAnimes = dataAnimes.data;
         criarAnime(allAnimes);
+        totalLoadedAnimes += allAnimes.length; // Incrementa o total de animes carregados
         currentPage++; // Incrementa a página para o próximo carregamento
     } else {
         console.log('Nenhum anime encontrado.');
@@ -52,6 +55,7 @@ const mostrarAnime = async () => {
 
 const criarAnime = (animes) => {
     animes.forEach(anime => {
+        if (totalLoadedAnimes >= maxAnimes) return; // Verifica novamente para evitar excesso
         const titulo = anime.attributes.titles.en_jp.toUpperCase();
         const posterImage = anime.attributes.posterImage.large;
 
@@ -87,6 +91,7 @@ const ajustarTitulos = () => {
 };
 
 const onScroll = () => {
+    if (totalLoadedAnimes >= maxAnimes) return; // Interrompe o scroll se atingir o limite
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 100) { // Quando o usuário chegar perto do final
         mostrarAnime();
@@ -107,17 +112,17 @@ const filterAnimes = async () => {
     } else {
         criarAnime(allAnimes); 
     }
-    if(searchTerm === ""){
-        currentPage = 0
-        mostrarAnime()
+    if(searchTerm === "") {
+        currentPage = 0;
+        mostrarAnime();
     }
 };
 
 inputSearch.addEventListener('keypress', (e) => {
     if (e.key === 13) {
-        filterAnimes()
+        filterAnimes();
     }
-})
+});
 
 inputSearch.addEventListener('input', filterAnimes);
 
