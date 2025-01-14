@@ -52,6 +52,13 @@ const mostrarAnime = async () => {
         console.log('Nenhum anime encontrado.');
     }
 
+    // Verifica se todos os animes foram carregados e oculta o botão "Próxima página"
+    if (offset < totalAnimes) {
+        buttonProximo.style.display = 'none'; // Oculta o botão "Próxima página"
+    } else {
+        buttonProximo.style.display = 'block';
+    }
+
     isLoading = false;
 };
 
@@ -82,6 +89,37 @@ const criarAnime = (animes) => {
     });
 };
 
+// Função de busca
+const filterAnimes = async () => {
+    const searchTerm = inputSearch.value.trim();
+    if (searchTerm) {
+        searchResults = await fetchAnimesBySearch(searchTerm);
+        if (searchResults.length > 0) {
+            offset = 0; // Resetar o offset ao buscar
+            containerAnimes.innerHTML = ''; // Limpar a lista de animes
+            mostrarAnime(); // Carregar os resultados da pesquisa
+            buttonProximo.style.display = 'none'; // Esconde o botão "Próxima página" se houver pesquisa
+        } else {
+            containerAnimes.innerHTML = 'Nenhum anime encontrado para a busca.';
+        }
+    } else {
+        // Caso o campo de busca esteja vazio, carregar todos os animes
+        searchResults = []; // Limpar resultados da pesquisa
+        offset = 0;
+        containerAnimes.innerHTML = ''; // Limpar a lista
+        mostrarAnime(); // Carregar os animes padrão
+        buttonProximo.style.display = 'block'; // Exibe o botão de próxima página
+    }
+};
+
+inputSearch.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        filterAnimes();
+    }
+});
+
+inputSearch.addEventListener('input', filterAnimes);
+
 // Botão de próxima página
 buttonProximo.addEventListener('click', async () => {
     if (offset < totalAnimes) {
@@ -97,35 +135,6 @@ buttonAnterior.addEventListener('click', async () => {
         await mostrarAnime();
     }
 });
-
-// Função de busca
-const filterAnimes = async () => {
-    const searchTerm = inputSearch.value.trim();
-    if (searchTerm) {
-        searchResults = await fetchAnimesBySearch(searchTerm);
-        if (searchResults.length > 0) {
-            offset = 0; // Resetar o offset ao buscar
-            containerAnimes.innerHTML = ''; // Limpar a lista de animes
-            mostrarAnime(); // Carregar os resultados da pesquisa
-        } else {
-            containerAnimes.innerHTML = 'Nenhum anime encontrado para a busca.';
-        }
-    } else {
-        // Caso o campo de busca esteja vazio, carregar todos os animes
-        searchResults = []; // Limpar resultados da pesquisa
-        offset = 0;
-        containerAnimes.innerHTML = ''; // Limpar a lista
-        mostrarAnime(); // Carregar os animes padrão
-    }
-};
-
-inputSearch.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        filterAnimes();
-    }
-});
-
-inputSearch.addEventListener('input', filterAnimes);
 
 // Função para carregar mais animes ao rolar o scroll
 const handleScroll = () => {
