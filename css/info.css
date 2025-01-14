@@ -113,6 +113,8 @@ img {
     }
 
     .button-voltar {
+        display: flex;
+        justify-content: flex-start;
         display: block;
         margin: 10px auto;
         font-size: 0.9rem;
