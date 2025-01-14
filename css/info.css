@@ -7,8 +7,7 @@
     text-decoration: none;
 }
 
-/* info.css */
-
+/* Estilos Globais */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
@@ -100,33 +99,51 @@ img {
     text-align: justify;
 }
 
+/* Responsividade */
 @media (max-width: 600px) {
-    .infoAnimesContainer {
+    body {
         padding: 10px;
+        height: auto;
+    }
+
+    .infoAnimesContainer {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .button-voltar {
+        display: block;
+        margin: 10px auto;
+        font-size: 0.9rem;
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
     }
 
     .info {
         flex-direction: column;
         align-items: center;
+        gap: 10px;
     }
 
     img {
-        max-width: 150px;
+        max-width: 100px;
     }
 
     .detalhes li {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        text-align: center;
     }
 
     .detalhes .trailer a {
-        padding: 8px 16px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 
     #sinopse {
-        font-size: 0.9rem;
+        font-size: clamp(0.85rem, 1.2vw, 1rem);
+        margin-top: 15px;
     }
 }

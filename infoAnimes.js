@@ -4,37 +4,31 @@ async function fetchAnimesInfo() {
 
     try {
         if (!animeId) {
-            document.body.innerHTML = '<p>ID do anime não forncecido.<p/>';
+            document.body.innerHTML = '<p>ID do anime não fornecido.<p/>';
             return;
         }
-    
+
         const response = await fetch(`https://kitsu.io/api/edge/anime/${animeId}`);
-    
         const data = await response.json();
 
-        document.querySelector("#button-voltar").addEventListener("click", function(){
+        document.querySelector("#button-voltar").addEventListener("click", function () {
             history.back();
         });
-    
+
         if (data) {
             const anime = data.data.attributes;
             document.getElementById('title').textContent = anime.titles.en || anime.titles.en_jp;
             document.getElementById('sinopse').textContent = anime.synopsis;
             document.getElementById('poster').src = anime.posterImage.medium;
-            document.querySelector('.lancamento').textContent = `Lançamento: ${anime.startDate} `;
-            document.querySelector('.idade').textContent = anime.ageRatingGuide;
-            document.querySelector('.numero_episodes').textContent = `Episodios: ${anime.episodeLength}`;
-            const trailerLink = document.querySelector('#trailer_link')
-            trailerLink.href = `https://www.youtube.com/watch?v=${anime.youtubeVideoId}`
-            
+            document.querySelector('.lancamento').textContent = `Lançamento: ${anime.startDate}`;
+            document.querySelector('.idade').textContent = anime.ageRatingGuide || 'N/A';
+            document.querySelector('.numero_episodes').textContent = `Episódios: ${anime.episodeLength || 'N/A'}`;
+            const trailerLink = document.querySelector('#trailer_link');
+            trailerLink.href = `https://www.youtube.com/watch?v=${anime.youtubeVideoId}`;
         }
-    } catch(e) {
-        console.error(e)
+    } catch (e) {
+        console.error(e);
     }
-    
-    
 }
 
 document.addEventListener('DOMContentLoaded', fetchAnimesInfo);
-
-
