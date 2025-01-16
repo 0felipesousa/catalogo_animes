@@ -119,6 +119,18 @@ body {
     visibility: hidden;
 }
 
+.anime_info_mensage {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    top: 10px;
+    left: 10px;
+    display: none; /* Oculto por padrão */
+    z-index: 10;
+}
+
 .voltar_avancar {
     display: flex;
     justify-content: center;

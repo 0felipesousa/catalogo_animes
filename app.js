@@ -4,17 +4,17 @@ const buttonProximo = document.querySelector('.proxima_pagina');
 const inputSearch = document.querySelector('.input-pesquisa');
 const URL_ANIMES = 'https://kitsu.io/api/edge/anime';
 const limit = 18; // Limite por requisição da API
-const totalAnimes = 54; // Total de animes a serem carregados (18 * 3 páginas)
-let currentPage = 0; // Página lógica atual
-let offset = 0; // Controle do deslocamento na API
+const initialLoad = 54; // Carregamento inicial de animes
+let currentPage = 0;
+let offset = 0;
 let isLoading = false;
-let searchResults = []; // Armazenar os resultados da pesquisa
+let searchResults = [];
 
 const fetchAnimes = async (pageOffset) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${pageOffset}`);
     if (response.ok) {
         const obj = await response.json();
-        return obj.data; // Retorna apenas os dados dos animes
+        return obj.data;
     } else {
         console.error(`Erro ao buscar animes: ${response.status}`);
         return [];
@@ -33,29 +33,25 @@ const fetchAnimesBySearch = async (searchTerm) => {
 };
 
 const mostrarAnime = async () => {
-    if (isLoading || offset >= totalAnimes) return; // Não carrega mais animes se já atingiu o total
+    if (isLoading) return;
     isLoading = true;
-
     let animes = [];
 
-    // Se houver uma pesquisa em andamento, use os resultados da pesquisa
     if (searchResults.length > 0) {
-        animes = searchResults.slice(offset, offset + limit); // Carrega a próxima parte da pesquisa
+        animes = searchResults.slice(offset, offset + limit);
     } else {
-        animes = await fetchAnimes(offset); // Caso contrário, carrega os animes normais
+        animes = await fetchAnimes(offset);
     }
 
     if (animes.length > 0) {
         criarAnime(animes);
-        offset += limit; // Atualiza o deslocamento para o próximo lote
+        offset += limit;
     } else {
         console.log('Nenhum anime encontrado.');
     }
 
-    // Verifica se todos os animes foram carregados e oculta o botão "Próxima página"
-    if (offset < totalAnimes) {
-        buttonProximo.style.display = 'none'; // Oculta o botão "Próxima página"
-    } else {
+    // Mostra o botão "Mostrar mais" após carregar os primeiros 54 animes
+    if (offset >= initialLoad) {
         buttonProximo.style.display = 'block';
     }
 
@@ -66,88 +62,86 @@ const criarAnime = (animes) => {
     animes.forEach(anime => {
         const titulo = anime.attributes.titles.en_jp?.toUpperCase() || 'Título indisponível';
         const posterImage = anime.attributes.posterImage?.large || '';
-
         const animeLista = document.createElement('div');
         animeLista.classList.add('anime_lista');
-
+        
         const link = document.createElement('a');
         link.href = `informacoes.html?id=${anime.id}`;
         link.classList.add('link_anime');
-
+        
         const animeImage = document.createElement('img');
         animeImage.src = posterImage;
         animeImage.classList.add('anime_image');
+        
+        // Título comentado conforme solicitado
+        // const animeTitulo = document.createElement('figcaption');
+        // animeTitulo.innerHTML = titulo;
+        // animeTitulo.classList.add('anime_titulo');
+        
+        const animeinfo = document.createElement('div');
+        animeinfo.innerHTML = titulo;
+        animeinfo.classList.add('anime_info_mensage');
+        animeinfo.style.display = 'none';
 
-        const animeTitulo = document.createElement('figcaption');
-        animeTitulo.innerHTML = titulo;
-        animeTitulo.classList.add('anime_titulo');
+        const mostrarInfo = () => {
+            animeinfo.style.display = 'block';
+        };
 
+        const ocultarInfo = () => {
+            animeinfo.style.display = 'none';
+        };
+
+        animeImage.onmouseover = mostrarInfo;
+        animeImage.onmouseout = ocultarInfo;
+        
         link.appendChild(animeImage);
-        link.appendChild(animeTitulo);
+        // link.appendChild(animeTitulo); // Comentado conforme solicitado
+        link.appendChild(animeinfo);
         animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
     });
 };
 
-// Função de busca
 const filterAnimes = async () => {
     const searchTerm = inputSearch.value.trim();
     if (searchTerm) {
         searchResults = await fetchAnimesBySearch(searchTerm);
         if (searchResults.length > 0) {
-            offset = 0; // Resetar o offset ao buscar
-            containerAnimes.innerHTML = ''; // Limpar a lista de animes
-            mostrarAnime(); // Carregar os resultados da pesquisa
-            buttonProximo.style.display = 'none'; // Esconde o botão "Próxima página" se houver pesquisa
+            offset = 0;
+            containerAnimes.innerHTML = '';
+            mostrarAnime();
+            buttonProximo.style.display = 'none';
         } else {
             containerAnimes.innerHTML = 'Nenhum anime encontrado para a busca.';
         }
     } else {
-        // Caso o campo de busca esteja vazio, carregar todos os animes
-        searchResults = []; // Limpar resultados da pesquisa
+        searchResults = [];
         offset = 0;
-        containerAnimes.innerHTML = ''; // Limpar a lista
-        mostrarAnime(); // Carregar os animes padrão
-        buttonProximo.style.display = 'block'; // Exibe o botão de próxima página
+        containerAnimes.innerHTML = '';
+        mostrarAnime();
     }
 };
 
+// Evento de pesquisa ao pressionar Enter
 inputSearch.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         filterAnimes();
     }
 });
 
-inputSearch.addEventListener('input', filterAnimes);
+// Remove o evento de input para evitar pesquisa automática
+// inputSearch.addEventListener('input', filterAnimes);
 
-// Botão de próxima página
+// Botão de mostrar mais (anteriormente próxima página)
 buttonProximo.addEventListener('click', async () => {
-    if (offset < totalAnimes) {
-        await mostrarAnime();
-    }
+    await mostrarAnime();
 });
 
-// Botão de página anterior
-buttonAnterior.addEventListener('click', async () => {
-    if (currentPage > 0) {
-        currentPage--;
-        offset = currentPage * limit; // Recalcula o deslocamento
+// Carrega o primeiro lote de animes (54)
+const loadInitialAnimes = async () => {
+    for (let i = 0; i < 3; i++) {
         await mostrarAnime();
-    }
-});
-
-// Função para carregar mais animes ao rolar o scroll
-const handleScroll = () => {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const bottomPosition = document.documentElement.scrollHeight;
-
-    if (scrollPosition >= bottomPosition - 100) { // Se o usuário chegou perto do final da página
-        mostrarAnime(); // Carrega mais animes
     }
 };
 
-// Evento de scroll
-window.addEventListener('scroll', handleScroll);
-
-// Inicializa com o primeiro lote de animes
-mostrarAnime();
+loadInitialAnimes();
