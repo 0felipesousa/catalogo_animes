@@ -9,6 +9,7 @@ let currentPage = 0;
 let offset = 0;
 let isLoading = false;
 let searchResults = [];
+let loadedAfterButton = 0; // Contador para animes carregados após o botão aparecer
 
 const fetchAnimes = async (pageOffset) => {
     const response = await fetch(`${URL_ANIMES}?page[limit]=${limit}&page[offset]=${pageOffset}`);
@@ -32,7 +33,7 @@ const fetchAnimesBySearch = async (searchTerm) => {
     }
 };
 
-const mostrarAnime = async () => {
+const mostrarAnime = async (isButtonClick = false) => {
     if (isLoading) return;
     isLoading = true;
     let animes = [];
@@ -46,13 +47,22 @@ const mostrarAnime = async () => {
     if (animes.length > 0) {
         criarAnime(animes);
         offset += limit;
+
+        // Se for um clique no botão, incrementa o contador
+        if (isButtonClick) {
+            loadedAfterButton += limit;
+            // Se atingir 54 animes carregados pelo botão, oculta o botão
+            if (loadedAfterButton >= 54) {
+                buttonProximo.style.display = 'none';
+                loadedAfterButton = 0; // Reseta o contador
+            }
+        } 
+        // Mostra o botão apenas quando atingir o carregamento inicial via scroll
+        else if (offset === initialLoad) {
+            buttonProximo.style.display = 'block';
+        }
     } else {
         console.log('Nenhum anime encontrado.');
-    }
-
-    // Mostra o botão "Mostrar mais" após carregar os primeiros 54 animes
-    if (offset >= initialLoad) {
-        buttonProximo.style.display = 'block';
     }
 
     isLoading = false;
@@ -73,11 +83,6 @@ const criarAnime = (animes) => {
         animeImage.src = posterImage;
         animeImage.classList.add('anime_image');
         
-        // Título comentado conforme solicitado
-        // const animeTitulo = document.createElement('figcaption');
-        // animeTitulo.innerHTML = titulo;
-        // animeTitulo.classList.add('anime_titulo');
-        
         const animeinfo = document.createElement('div');
         animeinfo.innerHTML = titulo;
         animeinfo.classList.add('anime_info_mensage');
@@ -95,7 +100,6 @@ const criarAnime = (animes) => {
         animeImage.onmouseout = ocultarInfo;
         
         link.appendChild(animeImage);
-        // link.appendChild(animeTitulo); // Comentado conforme solicitado
         link.appendChild(animeinfo);
         animeLista.appendChild(link);
         containerAnimes.appendChild(animeLista);
@@ -108,6 +112,7 @@ const filterAnimes = async () => {
         searchResults = await fetchAnimesBySearch(searchTerm);
         if (searchResults.length > 0) {
             offset = 0;
+            loadedAfterButton = 0;
             containerAnimes.innerHTML = '';
             mostrarAnime();
             buttonProximo.style.display = 'none';
@@ -117,6 +122,7 @@ const filterAnimes = async () => {
     } else {
         searchResults = [];
         offset = 0;
+        loadedAfterButton = 0;
         containerAnimes.innerHTML = '';
         mostrarAnime();
     }
@@ -129,19 +135,24 @@ inputSearch.addEventListener('keypress', (e) => {
     }
 });
 
-// Remove o evento de input para evitar pesquisa automática
-// inputSearch.addEventListener('input', filterAnimes);
-
-// Botão de mostrar mais (anteriormente próxima página)
+// Botão de mostrar mais (carrega próximos 18 animes)
 buttonProximo.addEventListener('click', async () => {
-    await mostrarAnime();
+    await mostrarAnime(true);
 });
 
-// Carrega o primeiro lote de animes (54)
-const loadInitialAnimes = async () => {
-    for (let i = 0; i < 3; i++) {
-        await mostrarAnime();
+// Função para carregar mais animes ao rolar o scroll
+const handleScroll = () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const bottomPosition = document.documentElement.scrollHeight;
+    
+    // Verifica se está próximo ao final da página e se não atingiu o limite inicial
+    if (scrollPosition >= bottomPosition - 100 && offset < initialLoad) {
+        mostrarAnime();
     }
 };
 
-loadInitialAnimes();
+// Evento de scroll
+window.addEventListener('scroll', handleScroll);
+
+// Carrega o primeiro lote de animes
+mostrarAnime();
